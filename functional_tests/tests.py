@@ -1,6 +1,6 @@
 import time
 
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common import keys
@@ -8,7 +8,7 @@ from selenium.webdriver.common import keys
 MAX_WAIT_SECOND = 10
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -67,9 +67,9 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_layout_and_styling(self):
         self.browser.get(self.live_server_url)
-        self.browser.set_window_size(1024, 768)
+        self.browser.set_window_size(480, 360)
         input_box = self.browser.find_element_by_id('new_item')
-        self.assertAlmostEqual(input_box.location['x'] + input_box.size['width'] / 2, 512, delta=10)
+        self.assertAlmostEqual(input_box.location['x'] + input_box.size['width'] / 2, 240, delta=10)
 
         input_box.send_keys('testing')
         input_box.send_keys(keys.Keys.ENTER)
@@ -77,7 +77,7 @@ class NewVisitorTest(LiveServerTestCase):
         input_box = self.browser.find_element_by_id('new_item')
         self.assertAlmostEqual(
             input_box.location['x'] + input_box.size['width'] / 2,
-            512,
+            240,
             delta=10
         )
 
