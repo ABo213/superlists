@@ -1,5 +1,4 @@
 import time
-import unittest
 
 from django.test import LiveServerTestCase
 from selenium import webdriver
@@ -36,8 +35,6 @@ class NewVisitorTest(LiveServerTestCase):
         self._wait_and_check_for_row_in_list_table('1: Buy peacock feathers')
         self._wait_and_check_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
-        self.fail('Finish the test!')
-
     def test_multiple_user_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
         input_box = self.browser.find_element_by_id('new_item')
@@ -55,7 +52,7 @@ class NewVisitorTest(LiveServerTestCase):
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
 
-        input_box = self.browser.find_element_by_id('id_new_item')
+        input_box = self.browser.find_element_by_id('new_item')
         input_box.send_keys('Buy milk')
         input_box.send_keys(keys.Keys.ENTER)
         self._wait_and_check_for_row_in_list_table('1: Buy milk')
