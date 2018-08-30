@@ -17,20 +17,20 @@ class NewVisitorTest(FunctionalTest):
 
         input_box.send_keys('Buy peacock feathers')
         input_box.send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
         input_box = self.browser.find_element_by_id('id_text')
         input_box.send_keys('Use peacock feathers to make a fly')
         input_box.send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy peacock feathers')
-        self._wait_and_check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
     def test_multiple_user_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
         input_box = self.browser.find_element_by_id('id_text')
         input_box.send_keys('Buy peacock feathers')
         input_box.send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
         ones_list_url = self.browser.current_url
         self.assertRegex(ones_list_url, '/lists/.+')
@@ -45,7 +45,7 @@ class NewVisitorTest(FunctionalTest):
         input_box = self.browser.find_element_by_id('id_text')
         input_box.send_keys('Buy milk')
         input_box.send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy milk')
+        self.wait_for_row_in_list_table('1: Buy milk')
 
         others_list_url = self.browser.current_url
         self.assertRegex(others_list_url, '/lists/.+')
@@ -65,7 +65,7 @@ class LayoutAndStylingTest(FunctionalTest):
 
         input_box.send_keys('testing')
         input_box.send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: testing')
+        self.wait_for_row_in_list_table('1: testing')
         input_box = self.browser.find_element_by_id('id_text')
         self.assertAlmostEqual(
             input_box.location['x'] + input_box.size['width'] / 2,
@@ -84,7 +84,7 @@ class ItemValidationTest(FunctionalTest):
         self.get_item_input_box().send_keys('Buy milk')
         self.wait_for(lambda: self.browser.find_element_by_css_selector('#id_text:valid'))
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy milk')
+        self.wait_for_row_in_list_table('1: Buy milk')
 
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
         self.wait_for(lambda: self.browser.find_element_by_css_selector('#id_text:invalid'))
@@ -92,14 +92,14 @@ class ItemValidationTest(FunctionalTest):
         self.get_item_input_box().send_keys('Make tea')
         self.wait_for(lambda: self.browser.find_element_by_css_selector('#id_text:valid'))
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy milk')
-        self._wait_and_check_for_row_in_list_table('2: Make tea')
+        self.wait_for_row_in_list_table('1: Buy milk')
+        self.wait_for_row_in_list_table('2: Make tea')
 
     def test_cannot_add_duplicate_items(self):
         self.browser.get(self.live_server_url)
         self.get_item_input_box().send_keys('Buy wellies')
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Buy wellies')
+        self.wait_for_row_in_list_table('1: Buy wellies')
 
         self.get_item_input_box().send_keys('Buy wellies')
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
@@ -111,7 +111,7 @@ class ItemValidationTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.get_item_input_box().send_keys('Banter too thick')
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
-        self._wait_and_check_for_row_in_list_table('1: Banter too thick')
+        self.wait_for_row_in_list_table('1: Banter too thick')
 
         self.get_item_input_box().send_keys('Banter too thick')
         self.get_item_input_box().send_keys(keys.Keys.ENTER)
